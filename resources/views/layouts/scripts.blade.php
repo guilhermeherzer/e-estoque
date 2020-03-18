@@ -12,3 +12,11 @@
 	<script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
   	<!-- Page level custom scripts -->
   	<script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script>
+	<!-- Mensagem Modal -->
+	@if(Session::has('mensagem'))
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#mensagemModal').modal('show');
+			});
+		</script>
+	@endif
