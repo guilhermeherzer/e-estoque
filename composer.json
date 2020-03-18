@@ -40,8 +40,10 @@
         "classmap": [
             "database/seeds",
             "database/factories"
-        ]
-    },
+        ],
+        "files": [
+            "app/Functions/MaskFunction.php"
+        ]    },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

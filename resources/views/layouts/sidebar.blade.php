@@ -28,6 +28,12 @@
 					<span>Produtos</span>
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ route('fornecedores') }}">
+					<i class="fas fa-chevron-circle-right"></i>
+					<span>Fornecedores</span>
+				</a>
+			</li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 			<!-- Sidebar Toggler (Sidebar) -->
