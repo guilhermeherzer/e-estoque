@@ -19,4 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 					'HomeController@index')->name('home');
+Route::get('/produtos', 				'ProdutosController@index')->name('produtos');
+Route::post('/produtos/cadastrar', 		'ProdutosController@cadastrar')->name('produtos-cadastrar');
+Route::post('/produtos/alterar/{id}', 	'ProdutosController@alterar')->name('produtos-alterar');
+Route::post('/produtos/deletar/{id}', 	'ProdutosController@deletar')->name('produtos-deletar');
