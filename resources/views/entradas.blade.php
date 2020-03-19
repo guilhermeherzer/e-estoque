@@ -13,15 +13,15 @@
 				<table class="table table-striped table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th width="10%">Id</th>
-							<th width="10%">Produto</th>
-							<th width="10%">Quant.</th>
+							<th width="5%">Id</th>
+							<th width="25%">Produto</th>
+							<th width="5%">Quant.</th>
 							<th width="10%">Valor Unit.</th>
 							<th width="10%">Valor Total</th>
 							<th width="20%">Fornecedor</th>
 							<th width="10%">Data Solic.</th>
 							<th width="10%">Data Entr.</th>
-							<th width="10%"></th>
+							<th width="5%"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,11 +30,11 @@
 							<td>{{ $e->id }}</td>
 							<td>{{ $e->produto }}</td>
 							<td>{{ $e->quantidade }}</td>
-							<td>{{ $e->valor_unit }}</td>
-							<td>{{ $e->valor_total }}</td>
+							<td>R$ {{ n($e->valor_unit) }}</td>
+							<td>R$ {{ n($e->valor_total) }}</td>
 							<td>{{ $e->fornecedor }}</td>
-							<td>{{ $e->data_solicitacao }}</td>
-							<td>{{ $e->data_entrega }}</td>
+							<td>{{ d($e->data_solicitacao) }}</td>
+							<td>{{ d($e->data_entrega) }}</td>
 							<td>
 								<a href="#" data-toggle="modal" data-target="#entradaModal{{ $e->id }}">
 									<i class="far fa-edit"></i>
@@ -54,13 +54,53 @@
 											<span aria-hidden="true">×</span>
 										</button>
 									</div>
-									<form method="post" action="{{ route('produtos-alterar', ['id' => $e->id]) }}">
+									<form method="post" action="{{ route('entradas-alterar', ['id' => $e->id]) }}">
 										@csrf
 										<div class="modal-body">
 											<div class="form-row mb-2">
 												<div class="col-md-6">
-													<label>Nome</label>
-													<input name="nome" class="form-control form-control-sm" value="{{ $e->nome }}" autocomplete="false" required>
+													<label>Produto</label>
+													<select name="produto" class="form-control form-control-sm" required>
+														@foreach($data['produtos'] as $p)
+															<option @if($p->nome == $e->produto) selected @endif value="{{ $p->id }}">{{ $p->nome }}</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div class="form-row mb-2">
+												<div class="col-md-6">
+													<label>Quantidade</label>
+													<input type="number" name="quantidade" id="quantidade_{{ $e->id }}" class="form-control form-control-sm" min="1" value="{{ $e->quantidade }}" onchange="total_('{{ $e->id }}')" required>
+												</div>
+											</div>
+											<div class="form-row mb-2">
+												<div class="col-md-6">
+													<label>Valor Unitário</label>
+													<input name="valor_unit" id="valor_unit_{{ $e->id }}" class="form-control form-control-sm" value="{{ n($e->valor_unit) }}" onchange="total_('{{ $e->id }}')" required>
+												</div>
+												<div class="col-md-6">
+													<label>Valor Total</label>
+													<input name="valor_total" id="valor_total_{{ $e->id }}" class="form-control form-control-sm" value="{{ n($e->valor_total) }}" required>
+												</div>
+											</div>
+											<div class="form-row mb-2">
+												<div class="col-md-6">
+													<label>Fornecedor</label>
+													<select name="fornecedor" class="form-control form-control-sm" required>
+														@foreach($data['fornecedores'] as $f)
+															<option value="{{ $f->id }}">{{ $f->nome }}</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div class="form-row mb-2">
+												<div class="col-md-6">
+													<label>Data de Solicitação</label>
+													<input type="date" name="data_solicitacao" class="form-control form-control-sm" value="{{ $e->data_solicitacao }}" required>
+												</div>
+												<div class="col-md-6">
+													<label>Data de Entrega</label>
+													<input type="date" name="data_entrega" class="form-control form-control-sm" value="{{ $e->data_entrega }}" required>
 												</div>
 											</div>
 										</div>
@@ -77,12 +117,12 @@
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Deseja excluir o produto {{ $e->nome }}?</h5>
+										<h5 class="modal-title" id="exampleModalLabel">Deseja excluir o produto {{ $e->produto }}?</h5>
 										<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">×</span>
 										</button>
 									</div>
-									<form method="post" action="{{ route('produtos-deletar', ['id' => $e->id]) }}">
+									<form method="post" action="{{ route('entradas-deletar', ['id' => $e->id]) }}">
 										@csrf
 										<div class="modal-body">
 											<div class="form-row mb-2">
@@ -123,7 +163,12 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Produto</label>
-							<input name="produto" class="form-control form-control-sm" required>
+							<select name="produto" class="form-control form-control-sm" required>
+								<option value=""></option>
+								@foreach($data['produtos'] as $p)
+									<option value="{{ $p->id }}">{{ $p->nome }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="form-row mb-2">
@@ -137,8 +182,6 @@
 							<label>Valor Unitário</label>
 							<input name="valor_unit" id="valor_unit" class="form-control form-control-sm" onchange="total()" required>
 						</div>
-					</div>
-					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Valor Total</label>
 							<input name="valor_total" id="valor_total" class="form-control form-control-sm" required>
@@ -147,7 +190,12 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Fornecedor</label>
-							<input name="fornecedor" class="form-control form-control-sm" required>
+							<select name="fornecedor" class="form-control form-control-sm" required>
+								<option value=""></option>
+								@foreach($data['fornecedores'] as $f)
+									<option value="{{ $f->id }}">{{ $f->nome }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="form-row mb-2">
@@ -155,8 +203,6 @@
 							<label>Data de Solicitação</label>
 							<input type="date" name="data_solicitacao" class="form-control form-control-sm" required>
 						</div>
-					</div>
-					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Data de Entrega</label>
 							<input type="date" name="data_entrega" class="form-control form-control-sm" required>
@@ -175,8 +221,17 @@
 	function total(){
 		var n1 = document.getElementById('quantidade').value;
 		var n2 = document.getElementById('valor_unit').value;
-		var result = n1 * n2.replace(',','.');
+		var n3 = n1 * n2.replace(',','.');
+		var result = n3.toFixed(2).toString().replace('.',',');
 		document.getElementById('valor_total').value = result;
+	}
+
+	function total_(a){
+		var n1 = document.getElementById('quantidade_'+a).value;
+		var n2 = document.getElementById('valor_unit_'+a).value;
+		var n3 = n1 * n2.replace(',','.');
+		var result = n3.toFixed(2).toString().replace('.',',');
+		document.getElementById('valor_total_'+a).value = result;
 	}
 </script>
 @endsection

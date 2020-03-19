@@ -33,3 +33,5 @@ Route::post('/fornecedores/deletar/{id}', 	'FornecedoresController@deletar')->na
 
 Route::get('/entradas', 					'EntradasController@index')->name('entradas');
 Route::post('/entradas/cadastrar', 			'EntradasController@cadastrar')->name('entradas-cadastrar');
+Route::post('/entradas/alterar/{id}', 		'EntradasController@alterar')->name('entradas-alterar');
+Route::post('/entradas/deletar/{id}', 		'EntradasController@deletar')->name('entradas-deletar');
