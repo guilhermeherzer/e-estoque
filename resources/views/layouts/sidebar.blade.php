@@ -40,6 +40,12 @@
 					<span>Entradas</span>
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ route('saidas') }}">
+					<i class="fas fa-chevron-circle-right"></i>
+					<span>Saidas</span>
+				</a>
+			</li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 			<!-- Sidebar Toggler (Sidebar) -->
