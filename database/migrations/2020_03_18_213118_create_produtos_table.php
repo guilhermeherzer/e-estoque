@@ -16,6 +16,10 @@ class CreateProdutosTable extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 150);
+            $table->string('img', 150);
+            $table->double('preco_loja');
+            $table->double('preco_app');
+            $table->integer('status');
             $table->integer('criado_por');
             $table->integer('atualizado_por');
             $table->timestamps();
