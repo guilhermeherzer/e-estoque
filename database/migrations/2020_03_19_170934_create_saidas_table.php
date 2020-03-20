@@ -17,6 +17,8 @@ class CreateSaidasTable extends Migration
             $table->id();
             $table->integer('produto');
             $table->integer('quantidade');
+            $table->double('preco_unit');
+            $table->double('preco_total');
             $table->date('data_saida');
             $table->integer('tipo');
             $table->integer('status');
