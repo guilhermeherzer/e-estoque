@@ -56,7 +56,7 @@ class EntradasController extends Controller
 
     	$request->session()->flash('mensagem', 'Entrada cadastrada com sucesso!');
 
-    	return redirect('entradas/');
+    	return redirect($request->url);
     }
 
     public function alterar(Request $request){

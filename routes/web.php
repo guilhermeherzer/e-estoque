@@ -42,5 +42,6 @@ Route::middleware('auth')->group(function(){
 	Route::post('/saidas/cadastrar', 			'SaidasController@cadastrar')->name('saidas-cadastrar');
 	Route::post('/saidas/alterar/{id}', 		'SaidasController@alterar')->name('saidas-alterar');
 	Route::post('/saidas/deletar/{id}', 		'SaidasController@deletar')->name('saidas-deletar');
-
+	
+	Route::get('/estoque',	 					'EstoqueController@index')->name('estoque');
 });

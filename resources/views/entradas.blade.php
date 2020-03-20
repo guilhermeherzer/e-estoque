@@ -160,6 +160,7 @@
 			<form method="post" action="{{ route('entradas-cadastrar') }}">
 				@csrf
 				<div class="modal-body">
+					<input name="url" value="{{ Request::path() }}" hidden="true">
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Produto</label>
