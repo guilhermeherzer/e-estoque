@@ -53,8 +53,18 @@
 										<div class="modal-body">
 											<div class="form-row mb-2">
 												<div class="col-md-6">
+													<label>Tipo</label>
+													<select name="tipo" id="tipo{{ $s->id }}" class="form-control form-control-sm" onchange="mudarTipo('{{ $s->id }}')" required>
+														@foreach($data['tipos'] as $t)
+															<option @if($t->nome == $s->tipo) selected @endif value="{{ $t->id }}">{{ $t->nome }}</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div class="form-row mb-2">
+												<div class="col-md-6">
 													<label>Produto</label>
-													<select name="produto" class="form-control form-control-sm" required>
+													<select name="produto" id="produto{{ $s->id }}" class="form-control form-control-sm" onchange="preencheCidades(this.value, '{{ $s->id }}')" required>
 														@foreach($data['produtos'] as $p)
 															<option @if($p->nome == $s->produto) selected @endif value="{{ $p->id }}">{{ $p->nome }}</option>
 														@endforeach
@@ -64,17 +74,17 @@
 											<div class="form-row mb-2">
 												<div class="col-md-6">
 													<label>Quantidade</label>
-													<input type="number" name="quantidade" class="form-control form-control-sm" min="1" value="{{ $s->quantidade }}" required>
+													<input type="number" name="quantidade" id="quantidade{{ $s->id }}" class="form-control form-control-sm" min="1" value="{{ $s->quantidade }}" onchange="valores('{{ $s->id }}');" required>
 												</div>
 											</div>
 											<div class="form-row mb-2">
 												<div class="col-md-6">
-													<label>Tipo</label>
-													<select name="tipo" class="form-control form-control-sm" required>
-														@foreach($data['tipos'] as $t)
-															<option @if($t->nome == $s->tipo) selected @endif value="{{ $t->id }}">{{ $t->nome }}</option>
-														@endforeach
-													</select>
+													<label>Preço Unit.</label>
+													<input name="preco_unit" id="preco_unit{{ $s->id }}" class="form-control form-control-sm" value="{{ n($s->preco_unit) }}" required>
+												</div>
+												<div class="col-md-6">
+													<label>Preço Total</label>
+													<input name="preco_total" id="preco_total{{ $s->id }}" class="form-control form-control-sm" value="{{ n($s->preco_total) }}" required>
 												</div>
 											</div>
 											<div class="form-row mb-2">
@@ -143,7 +153,7 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Tipo</label>
-							<select name="tipo" id="tipo" class="form-control form-control-sm" required>
+							<select name="tipo" id="tipo" class="form-control form-control-sm" onchange="mudarTipo('')" required>
 								<option value=""></option>
 								@foreach($data['tipos'] as $t)
 									<option value="{{ $t->id }}">{{ $t->nome }}</option>
@@ -154,7 +164,7 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Produto</label>
-							<select name="produto" id="produto" class="form-control form-control-sm" required>
+							<select name="produto" id="produto" class="form-control form-control-sm" onchange="preencheCidades(this.value, '')" required>
 								<option value=""></option>
 								@foreach($data['produtos'] as $p)
 									<option value="{{ $p->id }}">{{ $p->nome }}</option>
@@ -165,7 +175,7 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Quantidade</label>
-							<input type="number" name="quantidade" id="quantidade" class="form-control form-control-sm" min="1" onchange="valores();" required>
+							<input type="number" name="quantidade" id="quantidade" class="form-control form-control-sm" min="1" onchange="valores('');" required>
 						</div>
 					</div>
 					<div class="form-row mb-2">
@@ -181,7 +191,7 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Data de Saida</label>
-							<input type="date" name="data_saida" class="form-control form-control-sm" required>
+							<input type="datetime-local" name="data_saida" class="form-control form-control-sm" required>
 						</div>
 					</div>
 				</div>
@@ -194,27 +204,38 @@
 	</div>
 </div>
 <script type="text/javascript">
-	function valores(){
-		var unit = document.getElementById('preco_unit').value;
-		var qnt = document.getElementById('quantidade').value;
+	function valores(id){
+		var unit = document.getElementById('preco_unit'+id).value;
+		var qnt = document.getElementById('quantidade'+id).value;
 		var total = unit.replace(',','.') * qnt;
-		document.getElementById('preco_total').value = total.toFixed(2).toString().replace('.',',');
+		document.getElementById('preco_total'+id).value = total.toFixed(2).toString().replace('.',',');
 	}
 </script>
 
 <script type="text/javascript">
-	function preencheCidades(produto) {
-		var tipo = $('#tipo option:selected').text();
+	function mudarTipo(id){
+		if(document.getElementById('produto'+id).value !== ''){
+			preencheCidades($('#produto'+id+' option:selected').val(), id);
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	function preencheCidades(produto, id) {
+		var tipo = $('#tipo'+id+' option:selected').text();
 
 		$(arrProdutos).each(function() {
 			if (produto==this.id) 
 				if(tipo == 'Venda'){
-					document.getElementById('preco_unit').value = this.preco_loja.toFixed(2).toString().replace('.',',');
+					document.getElementById('preco_unit'+id).value = this.preco_loja.toFixed(2).toString().replace('.',',');
 				}else if(tipo == 'Zé Delivery'){
-					document.getElementById('preco_unit').value = this.preco_app.toFixed(2).toString().replace('.',',');
+					document.getElementById('preco_unit'+id).value = this.preco_app.toFixed(2).toString().replace('.',',');
 				}
-				//$('#preço_unit').append($("<input>").attr('value',this.preço_unit));
 		});
+
+		if(document.getElementById('quantidade'+id).value !== ''){
+			valores(id);
+		}
 	}
 
 	var arrProdutos = <?php echo json_encode($data['produtos']); ?>;
