@@ -20,3 +20,18 @@
 			});
 		</script>
 	@endif
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#tipo').change(function() {
+				if($('#produto option:selected').val() !== ''){
+					preencheCidades($('#produto option:selected').val());
+				}
+				if(document.getElementById('preco_unit').value !== ''){
+					valores();
+				}
+			});
+			$('#produto').change(function() {
+				preencheCidades($('#produto option:selected').val());
+			});
+		});
+	</script>

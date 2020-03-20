@@ -142,8 +142,19 @@
 				<div class="modal-body">
 					<div class="form-row mb-2">
 						<div class="col-md-6">
+							<label>Tipo</label>
+							<select name="tipo" id="tipo" class="form-control form-control-sm" required>
+								<option value=""></option>
+								@foreach($data['tipos'] as $t)
+									<option value="{{ $t->id }}">{{ $t->nome }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+					<div class="form-row mb-2">
+						<div class="col-md-6">
 							<label>Produto</label>
-							<select name="produto" class="form-control form-control-sm" required>
+							<select name="produto" id="produto" class="form-control form-control-sm" required>
 								<option value=""></option>
 								@foreach($data['produtos'] as $p)
 									<option value="{{ $p->id }}">{{ $p->nome }}</option>
@@ -154,18 +165,17 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Quantidade</label>
-							<input type="number" name="quantidade" class="form-control form-control-sm" min="1" required>
+							<input type="number" name="quantidade" id="quantidade" class="form-control form-control-sm" min="1" onchange="valores();" required>
 						</div>
 					</div>
 					<div class="form-row mb-2">
 						<div class="col-md-6">
-							<label>Tipo</label>
-							<select name="tipo" class="form-control form-control-sm" required>
-								<option value=""></option>
-								@foreach($data['tipos'] as $t)
-									<option value="{{ $t->id }}">{{ $t->nome }}</option>
-								@endforeach
-							</select>
+							<label>Preço Unit.</label>
+							<input name="preco_unit" id="preco_unit" class="form-control form-control-sm" required>
+						</div>
+						<div class="col-md-6">
+							<label>Preço Total</label>
+							<input name="preco_total" id="preco_total" class="form-control form-control-sm" required>
 						</div>
 					</div>
 					<div class="form-row mb-2">
@@ -183,4 +193,30 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	function valores(){
+		var unit = document.getElementById('preco_unit').value;
+		var qnt = document.getElementById('quantidade').value;
+		var total = unit.replace(',','.') * qnt;
+		document.getElementById('preco_total').value = total.toFixed(2).toString().replace('.',',');
+	}
+</script>
+
+<script type="text/javascript">
+	function preencheCidades(produto) {
+		var tipo = $('#tipo option:selected').text();
+
+		$(arrProdutos).each(function() {
+			if (produto==this.id) 
+				if(tipo == 'Venda'){
+					document.getElementById('preco_unit').value = this.preco_loja.toFixed(2).toString().replace('.',',');
+				}else if(tipo == 'Zé Delivery'){
+					document.getElementById('preco_unit').value = this.preco_app.toFixed(2).toString().replace('.',',');
+				}
+				//$('#preço_unit').append($("<input>").attr('value',this.preço_unit));
+		});
+	}
+
+	var arrProdutos = <?php echo json_encode($data['produtos']); ?>;
+</script>
 @endsection
