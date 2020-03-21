@@ -37,23 +37,71 @@ class SaidasController extends Controller
 	}
 
 	public function cadastrar(Request $request){
-		$saidasData = array(
-			"produto" 				=> $request->produto,
-			"quantidade" 			=> $request->quantidade,
-			"preco_unit"            => m($request->preco_unit),
-			"preco_total"           => m($request->preco_total),
-			"data_saida" 			=> $request->data_saida,
-			"tipo" 					=> $request->tipo,
-			"status" 				=> 0,
-			"criado_por" 			=> Auth::user()->id,
-			"atualizado_por" 		=> Auth::user()->id,
-			"created_at" 			=> date('Y/m/d H:i:s'),
-			"updated_at" 			=> date('Y/m/d H:i:s')
-		);
+		$entradas = DB::table('entradas')
+			->select(DB::raw('SUM(quantidade) as quantidade'))
+			->groupBy('produto')
+			->where([['status', 0], ['produto', $request->produto]])
+			->first();
 
-		DB::table('saidas')->insert($saidasData);
+		$saidas = DB::table('saidas')
+			->select(DB::raw('SUM(quantidade) as quantidade'))
+			->groupBy('produto')
+			->where([['status', 0], ['produto', $request->produto]])
+			->first();
 
-		$request->session()->flash('mensagem', 'Saida cadastrada com sucesso!');
+		if($entradas):
+			if($saidas):
+				$diff = $entradas->quantidade - $saidas->quantidade - $request->quantidade;
+
+				if($diff >= 0):
+					$saidasData = array(
+						"produto" 				=> $request->produto,
+						"quantidade" 			=> $request->quantidade,
+						"preco_unit"            => m($request->preco_unit),
+						"preco_total"           => m($request->preco_total),
+						"data_saida" 			=> $request->data_saida,
+						"tipo" 					=> $request->tipo,
+						"status" 				=> 0,
+						"criado_por" 			=> Auth::user()->id,
+						"atualizado_por" 		=> Auth::user()->id,
+						"created_at" 			=> date('Y/m/d H:i:s'),
+						"updated_at" 			=> date('Y/m/d H:i:s')
+					);
+
+					DB::table('saidas')->insert($saidasData);
+
+					$request->session()->flash('mensagem', 'Saida cadastrada com sucesso!');
+				else:
+					$request->session()->flash('mensagem', 'Não há produto suficiente em estoque!');
+				endif;
+			else:
+				$diff = $entradas->quantidade - $request->quantidade;
+
+				if($diff >= 0):
+					$saidasData = array(
+						"produto" 				=> $request->produto,
+						"quantidade" 			=> $request->quantidade,
+						"preco_unit"            => m($request->preco_unit),
+						"preco_total"           => m($request->preco_total),
+						"data_saida" 			=> $request->data_saida,
+						"tipo" 					=> $request->tipo,
+						"status" 				=> 0,
+						"criado_por" 			=> Auth::user()->id,
+						"atualizado_por" 		=> Auth::user()->id,
+						"created_at" 			=> date('Y/m/d H:i:s'),
+						"updated_at" 			=> date('Y/m/d H:i:s')
+					);
+
+					DB::table('saidas')->insert($saidasData);
+
+					$request->session()->flash('mensagem', 'Saida cadastrada com sucesso!');
+				else:
+					$request->session()->flash('mensagem', 'Não há produto suficiente em estoque!');
+				endif;
+			endif;
+		else:
+			$request->session()->flash('mensagem', 'Não existem entradas para este produto!');
+		endif;
 
 		return redirect('saidas/');
 	}
