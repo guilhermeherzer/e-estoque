@@ -58,11 +58,11 @@
 											<div class="form-row mb-2">
 												<div class="col-md-4">
 													<label>Preço Loja</label>
-													<input name="preco_loja" class="form-control form-control-sm" value="{{ $p->preco_loja }}" autocomplete="false" required>
+													<input name="preco_loja" class="form-control form-control-sm" value="{{ n($p->preco_loja) }}" autocomplete="false" required>
 												</div>
 												<div class="col-md-4">
 													<label>Preço App</label>
-													<input name="preco_app" class="form-control form-control-sm" value="{{ $p->preco_app }}" autocomplete="false" required>
+													<input name="preco_app" class="form-control form-control-sm" value="{{ n($p->preco_app) }}" autocomplete="false" required>
 												</div>
 											</div>
 										</div>
