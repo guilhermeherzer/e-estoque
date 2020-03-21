@@ -116,7 +116,7 @@ class SaidasController extends Controller
 		$saidas = DB::table('saidas')
 			->select(DB::raw('SUM(quantidade) as quantidade'))
 			->groupBy('produto')
-			->where([['status', 0], ['produto', $request->produto]])
+			->where([['status', 0], ['produto', $request->produto], ['id', '!==', $request->id]])
 			->first();
 
 		if($entradas):
