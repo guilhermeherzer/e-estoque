@@ -107,20 +107,65 @@ class SaidasController extends Controller
 	}
 
 	public function alterar(Request $request){
-		$saidasData = array(
-			"produto" 				=> $request->produto,
-			"quantidade" 			=> $request->quantidade,
-			"preco_unit"            => m($request->preco_unit),
-			"preco_total"           => m($request->preco_total),
-			"data_saida" 			=> $request->data_saida,
-			"tipo" 					=> $request->tipo,
-			"atualizado_por" 		=> Auth::user()->id,
-			"updated_at" 			=> date('Y/m/d H:i:s')
-		);
+		$entradas = DB::table('entradas')
+			->select(DB::raw('SUM(quantidade) as quantidade'))
+			->groupBy('produto')
+			->where([['status', 0], ['produto', $request->produto]])
+			->first();
 
-		DB::table('saidas')->where('id', $request->id)->update($saidasData);
+		$saidas = DB::table('saidas')
+			->select(DB::raw('SUM(quantidade) as quantidade'))
+			->groupBy('produto')
+			->where([['status', 0], ['produto', $request->produto]])
+			->first();
 
-		$request->session()->flash('mensagem', 'Saida alterada com sucesso!');
+		if($entradas):
+			if($saidas):
+				$diff = $entradas->quantidade - $saidas->quantidade - $request->quantidade;
+
+				if($diff >= 0):
+					$saidasData = array(
+						"produto" 				=> $request->produto,
+						"quantidade" 			=> $request->quantidade,
+						"preco_unit"            => m($request->preco_unit),
+						"preco_total"           => m($request->preco_total),
+						"data_saida" 			=> $request->data_saida,
+						"tipo" 					=> $request->tipo,
+						"atualizado_por" 		=> Auth::user()->id,
+						"updated_at" 			=> date('Y/m/d H:i:s')
+					);
+
+					DB::table('saidas')->where('id', $request->id)->update($saidasData);
+
+					$request->session()->flash('mensagem', 'Saida alterada com sucesso!');
+				else:
+					$request->session()->flash('mensagem', 'Não há produto suficiente em estoque!');
+				endif;
+			else:
+				$diff = $entradas->quantidade - $request->quantidade;
+
+				if($diff >= 0):
+					$saidasData = array(
+						"produto" 				=> $request->produto,
+						"quantidade" 			=> $request->quantidade,
+						"preco_unit"            => m($request->preco_unit),
+						"preco_total"           => m($request->preco_total),
+						"data_saida" 			=> $request->data_saida,
+						"tipo" 					=> $request->tipo,
+						"atualizado_por" 		=> Auth::user()->id,
+						"updated_at" 			=> date('Y/m/d H:i:s')
+					);
+
+					DB::table('saidas')->where('id', $request->id)->update($saidasData);
+
+					$request->session()->flash('mensagem', 'Saida alterada com sucesso!');
+				else:
+					$request->session()->flash('mensagem', 'Não há produto suficiente em estoque!');
+				endif;
+			endif;
+		else:
+			$request->session()->flash('mensagem', 'Não existem entradas para este produto!');
+		endif;
 
 		return redirect('saidas/');
 	}
