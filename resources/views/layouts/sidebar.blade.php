@@ -19,7 +19,7 @@
 			<hr class="sidebar-divider">
 			<!-- Heading -->
 			<div class="sidebar-heading">
-				Interface
+				Produtos
 			</div>
 			<!-- Nav Item - Charts -->
 			<li class="nav-item">
@@ -27,13 +27,33 @@
 					<i class="fas fa-chevron-circle-right"></i>
 					<span>Produtos</span>
 				</a>
+				<a class="nav-link" href="{{ route('produtos') }}">
+					<i class="fas fa-chevron-circle-right"></i>
+					<span>Categorias</span>
+				</a>
+				<a class="nav-link" href="{{ route('produtos') }}">
+					<i class="fas fa-chevron-circle-right"></i>
+					<span>Marcas</span>
+				</a>
 			</li>
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+			<!-- Heading -->
+			<div class="sidebar-heading">
+				Fornecedores
+			</div>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ route('fornecedores') }}">
 					<i class="fas fa-chevron-circle-right"></i>
 					<span>Fornecedores</span>
 				</a>
 			</li>
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+			<!-- Heading -->
+			<div class="sidebar-heading">
+				Entradas e Saidas
+			</div>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ route('entradas') }}">
 					<i class="fas fa-chevron-circle-right"></i>
@@ -46,6 +66,12 @@
 					<span>Saidas</span>
 				</a>
 			</li>
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+			<!-- Heading -->
+			<div class="sidebar-heading">
+				Estoque
+			</div>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ route('estoque') }}">
 					<i class="fas fa-chevron-circle-right"></i>
