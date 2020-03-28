@@ -40,7 +40,7 @@ class SaidasController extends Controller
 		$entradas = DB::table('entradas')
 			->select(DB::raw('SUM(quantidade) as quantidade'))
 			->groupBy('produto')
-			->where([['status', 0], ['produto', $request->produto]])
+			->where([['status', 0], ['produto', $request->produto], ['data_entrega', "<=", date('Y-m-d', strtotime($request->data_saida))]])
 			->first();
 
 		$saidas = DB::table('saidas')

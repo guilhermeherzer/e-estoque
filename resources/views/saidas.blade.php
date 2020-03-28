@@ -191,7 +191,7 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Data de Saida</label>
-							<input type="datetime-local" name="data_saida" class="form-control form-control-sm" required>
+							<input type="datetime-local" name="data_saida" class="form-control form-control-sm" max="{{ date('Y-m-d\TH:i:s') }}" value="{{ date('Y-m-d\TH:i:s') }}" required>
 						</div>
 					</div>
 				</div>
