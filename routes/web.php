@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function(){
 	Route::post('/produtos/cadastrar', 			'ProdutosController@cadastrar')->name('produtos-cadastrar');
 	Route::post('/produtos/alterar/{id}', 		'ProdutosController@alterar')->name('produtos-alterar');
 	Route::post('/produtos/deletar/{id}', 		'ProdutosController@deletar')->name('produtos-deletar');
+	
+	Route::post('/cadastrar-tipo-produto', 		'ProdutosController@cadastrar_tipo')->name('cadastrar-tipo-protudo');
+	Route::post('/cadastrar-carca-produto',		'ProdutosController@cadastrar_marca')->name('cadastrar-marca-protudo');
 
 	Route::get('/fornecedores', 				'FornecedoresController@index')->name('fornecedores');
 	Route::post('/fornecedores/cadastrar', 		'FornecedoresController@cadastrar')->name('fornecedores-cadastrar');
