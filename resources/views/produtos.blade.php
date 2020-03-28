@@ -1,12 +1,31 @@
 @extends('layouts.layout')
 @section('content')
+<style type="text/css">
+	@media (min-width: 1680px) {
+		.mr-full{
+			margin-right: 62.1% !important;
+		}
+	}
+
+	@media (min-width: 2560px) {
+		.mr-full{
+			margin-right: 76.7% !important;
+		}
+	}
+</style>
 <div class="container-fluid">
 	<!-- Page Heading -->
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Produtos</h1>
-		<a href="#" data-toggle="modal" data-target="#produtoModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar Produto</a>
-		<a href="#" data-toggle="modal" data-target="#tipoModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar Tipo</a>
-		<a href="#" data-toggle="modal" data-target="#marcaModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar Marca</a>
+	<div class="align-items-center justify-content-between mb-4">
+		<h1 class="d-none d-sm-inline-block h3 mb-0 text-gray-800 mr-full">Produtos</h1>
+		<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#produtoModal">
+			<i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar Produto
+		</a>
+		<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#tipoModal">
+			<i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar Tipo
+		</a>
+		<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#marcaModal">
+			<i class="fas fa-plus fa-sm text-white-50"></i> Cadastrar Marca
+		</a>
 	</div>
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
