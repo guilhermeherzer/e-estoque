@@ -48,3 +48,5 @@ Route::middleware('auth')->group(function(){
 	
 	Route::get('/estoque',	 					'EstoqueController@index')->name('estoque');
 });
+	
+	Route::get('/app',		 					'AppController@index')->name('app');
