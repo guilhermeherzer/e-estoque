@@ -44,12 +44,12 @@
 								</a>
 							</td>
 						</tr>
-						<!-- Alteração de Produto Modal -->
+						<!-- Alteração de Entrada de Produto Modal -->
 						<div class="modal fade" id="entradaModal{{ $e->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Formulário de Alteração de Produto</h5>
+										<h5 class="modal-title" id="exampleModalLabel">Formulário de Alteração de Entrada de Produto</h5>
 										<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">×</span>
 										</button>
@@ -112,12 +112,12 @@
 								</div>
 							</div>
 						</div>
-						<!-- Deletar Produto Modal -->
+						<!-- Deletar Entrada de Produto Modal -->
 						<div class="modal fade" id="deleteModal{{ $e->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Deseja excluir o produto {{ $e->produto }}?</h5>
+										<h5 class="modal-title" id="exampleModalLabel">Deseja excluir a entrada do produto {{ $e->produto }}?</h5>
 										<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">×</span>
 										</button>
@@ -147,12 +147,12 @@
 		</div>
 	</div>
 </div>
-<!-- Cadastro de Produto Modal -->
+<!-- Cadastro de Entrada de Produto Modal -->
 <div class="modal fade" id="entradaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Formulário de Cadastro de Produto</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Formulário de Cadastro de Entrada de Produto</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
