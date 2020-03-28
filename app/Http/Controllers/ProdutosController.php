@@ -40,7 +40,7 @@ class ProdutosController extends Controller
 
         $imageName = request()->img->getClientOriginalName();
 
-		if(request()->img->move(public_path('/assets/img'), $imageName)):
+		if(request()->img->move(public_path('/assets/img/produtos'), $imageName)):
 			$img = 'assets/img/' . $imageName;
 			$produtosData = array(
 				"tipo" 				=> $request->tipo,
