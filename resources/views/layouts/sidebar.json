@@ -52,13 +52,13 @@
 				{
 					"id": "2",
 					"level": "0",
-					"href": "produtos",
+					"href": "tipos-produtos",
 					"span": "Categorias"
 				},
 				{
 					"id": "3",
 					"level": "0",
-					"href": "produtos",
+					"href": "marcas-produtos",
 					"span": "Marcas"
 				}
 			]
