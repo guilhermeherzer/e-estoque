@@ -60,7 +60,7 @@
 												</div>
 												<div class="col-md-6">
 													<label>Valor Total</label>
-													<input name="valor_total" id="valor_total{{ $e['id'] }}" class="form-control form-control-sm" required>
+													<input name="valor_total" id="valor_total{{ $e['id'] }}" disabled class="form-control form-control-sm" required>
 												</div>
 											</div>
 											<div class="form-row mb-2">

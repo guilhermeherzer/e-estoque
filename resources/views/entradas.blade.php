@@ -80,7 +80,7 @@
 												</div>
 												<div class="col-md-6">
 													<label>Valor Total</label>
-													<input name="valor_total" id="valor_total_{{ $e->id }}" class="form-control form-control-sm" value="{{ n($e->valor_total) }}" required>
+													<input name="valor_total" id="valor_total_{{ $e->id }}" disabled class="form-control form-control-sm" value="{{ n($e->valor_total) }}" required>
 												</div>
 											</div>
 											<div class="form-row mb-2">
@@ -185,7 +185,7 @@
 						</div>
 						<div class="col-md-6">
 							<label>Valor Total</label>
-							<input name="valor_total" id="valor_total" class="form-control form-control-sm" required>
+							<input name="valor_total" id="valor_total" disabled class="form-control form-control-sm" required>
 						</div>
 					</div>
 					<div class="form-row mb-2">
