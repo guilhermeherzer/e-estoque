@@ -1,0 +1,82 @@
+{
+	"menus": [
+		{
+			"id": "1",
+			"level": "0",
+			"href": "",
+			"span": "Estoque",
+			"submenu": "sim",
+			"sub": [
+				{
+					"id": "1",
+					"level": "0",
+					"href": "estoque",
+					"span": "Estoque"
+				}
+			]
+		},
+		{
+			"id": "2",
+			"level": "0",
+			"href": "",
+			"span": "Entradas e Saidas",
+			"submenu": "sim",
+			"sub": [
+				{
+					"id": "1",
+					"level": "0",
+					"href": "entradas",
+					"span": "Entradas"
+				},
+				{
+					"id": "2",
+					"level": "0",
+					"href": "saidas",
+					"span": "Saidas"
+				}
+			]
+		},
+		{
+			"id": "3",
+			"level": "0",
+			"href": "",
+			"span": "Produtos",
+			"submenu": "sim",
+			"sub": [
+				{
+					"id": "1",
+					"level": "0",
+					"href": "produtos",
+					"span": "Produtos"
+				},
+				{
+					"id": "2",
+					"level": "0",
+					"href": "produtos",
+					"span": "Categorias"
+				},
+				{
+					"id": "3",
+					"level": "0",
+					"href": "produtos",
+					"span": "Marcas"
+				}
+			]
+		},
+		{
+			"id": "4",
+			"level": "0",
+			"href": "",
+			"span": "Fornecedores",
+			"submenu": "sim",
+			"sub": [
+				{
+					"id": "1",
+					"level": "0",
+					"href": "fornecedores",
+					"span": "Fornecedores"
+				}
+			]
+		}
+	]
+}
