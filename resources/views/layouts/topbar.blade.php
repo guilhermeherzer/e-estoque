@@ -1,3 +1,44 @@
+<?php
+    	$produtos = DB::table('produtos')
+    		->where('status', '0')
+    		->orderBy('nome', 'asc')
+    		->get();
+
+    	$alerta = array();
+
+    	foreach($produtos as $p):
+
+		    	$entradas = DB::table('entradas')
+		    		->select(DB::raw('SUM(quantidade) as quantidade'))
+		    		->groupBy('produto')
+		    		->where([['status', 0], ['produto', $p->id]])
+		    		->first();
+
+
+		    	$saidas = DB::table('saidas')
+		    		->select(DB::raw('SUM(quantidade) as quantidade'))
+		    		->groupBy('produto')
+		    		->where([['status', 0], ['produto', $p->id]])
+		    		->first();
+
+		    	if($entradas):
+		    		$entradas = $entradas->quantidade;
+		    	endif;
+
+		    	if($saidas):
+		    		$saidas = $saidas->quantidade;
+		    	endif;
+
+		    	$teste = $entradas - $saidas;
+
+		    	if($teste == 0):
+		    		$alerta[] = ['produto' => $p->nome, 'quantidade' => $teste];
+		    	endif;
+    				
+    	endforeach;
+
+        //dd($alerta);
+?>
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 					<!-- Sidebar Toggle (Topbar) -->
 					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -42,12 +83,13 @@
 						<li class="nav-item dropdown no-arrow mx-1">
 							<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-bell fa-fw"></i>
-								<span class="badge badge-danger badge-counter">1+</span>
+								<span class="badge badge-danger badge-counter">{{ count($alerta) }}+</span>
 							</a>
 							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 								<h6 class="dropdown-header">
 									Central de Alertas
 								</h6>
+								@foreach($alerta as $a)
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="mr-3">
 										<div class="icon-circle bg-danger">
@@ -56,9 +98,10 @@
 									</div>
 									<div>
 										<div class="small text-gray-500">{{ date('d/m/Y') }}</div>
-										<span class="font-weight-bold">O produto Brahma 269ml está acabando!</span>
+										<span>O produto <strong>{{ $a['produto'] }}</strong> está acabando! Restam <strong>{{ $a['quantidade'] }}</strong> unidades.</span>
 									</div>
 								</a>
+								@endforeach
 								<a class="dropdown-item text-center small text-gray-500" href="#">Mostrar todos os alertas</a>
 							</div>
 						</li>
