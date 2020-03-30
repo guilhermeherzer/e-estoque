@@ -80,11 +80,11 @@
 											<div class="form-row mb-2">
 												<div class="col-md-6">
 													<label>Preço Unit.</label>
-													<input name="preco_unit" id="preco_unit{{ $s->id }}" disabled class="form-control form-control-sm" value="{{ n($s->preco_unit) }}" required>
+													<input name="preco_unit" id="preco_unit{{ $s->id }}" readonly class="form-control form-control-sm" value="{{ n($s->preco_unit) }}" required>
 												</div>
 												<div class="col-md-6">
 													<label>Preço Total</label>
-													<input name="preco_total" id="preco_total{{ $s->id }}" disabled class="form-control form-control-sm" value="{{ n($s->preco_total) }}" required>
+													<input name="preco_total" id="preco_total{{ $s->id }}" readonly class="form-control form-control-sm" value="{{ n($s->preco_total) }}" required>
 												</div>
 											</div>
 											<div class="form-row mb-2">
@@ -181,11 +181,11 @@
 					<div class="form-row mb-2">
 						<div class="col-md-6">
 							<label>Preço Unit.</label>
-							<input name="preco_unit" id="preco_unit" disabled class="form-control form-control-sm" required>
+							<input name="preco_unit" id="preco_unit" readonly class="form-control form-control-sm" required>
 						</div>
 						<div class="col-md-6">
 							<label>Preço Total</label>
-							<input name="preco_total" id="preco_total" disabled class="form-control form-control-sm" required>
+							<input name="preco_total" id="preco_total" readonly class="form-control form-control-sm" required>
 						</div>
 					</div>
 					<div class="form-row mb-2">
