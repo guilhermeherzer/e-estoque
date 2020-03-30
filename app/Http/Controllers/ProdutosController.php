@@ -118,18 +118,30 @@ class ProdutosController extends Controller
 	}
 
 	public function cadastrar_marca(Request $request){
-		$marcaData = array(
-			"nome"				=>	$request->nome,
-			"status"			=>	0,
-			"criado_por"		=>	Auth::user()->id,
-			"atualizado_por"	=>	Auth::user()->id,
-			"created_at"		=>	date('Y/m/d H:i:s'),
-			"updated_at"		=>	date('Y/m/d H:i:s')
-		);
+		request()->validate([
+            'img' => 'required|image|mimes:png|max:2048',
+        ]);
 
-		DB::table('marcas_produtos')->insert($marcaData);
+        $imageName = request()->img->getClientOriginalName();
 
-		$request->session()->flash('mensagem', 'Marca de produto cadastrado com sucesso!');
+		if(request()->img->move(public_path('/assets/img/marcas'), $imageName)):
+			$img = 'assets/img/marcas/' . $imageName;
+			$marcaData = array(
+				"nome"				=>	$request->nome,
+				"img"				=>	$img,
+				"status"			=>	0,
+				"criado_por"		=>	Auth::user()->id,
+				"atualizado_por"	=>	Auth::user()->id,
+				"created_at"		=>	date('Y/m/d H:i:s'),
+				"updated_at"		=>	date('Y/m/d H:i:s')
+			);
+
+			DB::table('marcas_produtos')->insert($marcaData);
+
+			$request->session()->flash('mensagem', 'Marca de produto cadastrado com sucesso!');
+		else:
+			$request->session()->flash('mensagem', 'Imagem não foi salva.');
+		endif;
 
 		return redirect('produtos/');
 	}

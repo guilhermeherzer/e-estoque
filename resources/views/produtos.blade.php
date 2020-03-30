@@ -177,7 +177,7 @@
 						</div>
 					</div>
 					<div class="form-row mb-2">
-						<div class="col-md-6">
+						<div class="col-md-10">
 							<label>Imagem</label>
 							<input type="file" name="img" id="img" class="form-control form-control-sm" required>
 						</div>
@@ -239,7 +239,7 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form method="post" action="{{ route('cadastrar-marca-protudo') }}">
+			<form method="post" action="{{ route('cadastrar-marca-protudo') }}" enctype="multipart/form-data">
 				@csrf
 				<div class="modal-body">
 					<div class="form-row mb-2">
@@ -248,12 +248,10 @@
 							<input name="nome" class="form-control form-control-sm" required>
 						</div>
 					</div>
-				</div>
-				<div class="modal-body">
 					<div class="form-row mb-2">
-						<div class="col-md-6">
+						<div class="col-md-10">
 							<label>Imagem</label>
-							<input name="img" class="form-control form-control-sm">
+							<input type="file" name="img" id="img" class="form-control form-control-sm" required>
 						</div>
 					</div>
 				</div>

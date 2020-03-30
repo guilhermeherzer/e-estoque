@@ -16,6 +16,7 @@ class CreateMarcasProdutosTable extends Migration
         Schema::create('marcas_produtos', function (Blueprint $table) {
             $table->id();
             $table->string('nome', '50');
+            $table->string('img', '150');
             $table->integer('status');
             $table->integer('criado_por');
             $table->integer('atualizado_por');
