@@ -58,6 +58,14 @@ class HomeController extends Controller
             endif;
         endforeach;
 
+        $entrada_anual = 0;
+
+        foreach($entradas as $e):
+            if(date('y', strtotime($e->data_entrega)) == date('y')):
+                $entrada_anual += $e->valor_total;
+            endif;
+        endforeach;
+
         $saida_anual = 0;
 
         foreach($saidas as $s):
@@ -68,9 +76,11 @@ class HomeController extends Controller
 
         $lucro_mensal = $saida_mensal - $entrada_mensal;
 
+        $lucro_anual = $saida_anual - $entrada_anual;
+
         //dd($saida_mensal);
 
-        $data = array('entradas' => $entradas, 'saidas' => $saidas, 'entrada_mensal' => $entrada_mensal, 'saida_mensal' => $saida_mensal, 'saida_anual' => $saida_anual, 'lucro_mensal' => $lucro_mensal);
+        $data = array('entradas' => $entradas, 'saidas' => $saidas, 'entrada_mensal' => $entrada_mensal, 'saida_mensal' => $saida_mensal, 'saida_anual' => $saida_anual, 'lucro_mensal' => $lucro_mensal, 'lucro_anual' => $lucro_anual);
 
         return view('home', compact('data'));
     }
