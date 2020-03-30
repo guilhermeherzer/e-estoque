@@ -30,7 +30,6 @@ class HomeController extends Controller
             ->leftJoin('fornecedores', 'fornecedores.id', 'entradas.fornecedor')
             ->where('entradas.status', '0')
             ->orderBy('entradas.data_solicitacao', 'desc')
-            ->limit(10)
             ->get();
 
         $saidas = DB::table('saidas')
@@ -39,7 +38,6 @@ class HomeController extends Controller
             ->leftJoin('tipos_saidas', 'tipos_saidas.id', 'saidas.tipo')
             ->where('saidas.status', '0')
             ->orderBy('saidas.data_saida', 'desc')
-            ->limit(10)
             ->get();
 
         $entrada_mensal = 0;
@@ -78,9 +76,105 @@ class HomeController extends Controller
 
         $lucro_anual = $saida_anual - $entrada_anual;
 
-        //dd($saida_mensal);
+        //Charts
 
-        $data = array('entradas' => $entradas, 'saidas' => $saidas, 'entrada_mensal' => $entrada_mensal, 'saida_mensal' => $saida_mensal, 'saida_anual' => $saida_anual, 'lucro_mensal' => $lucro_mensal, 'lucro_anual' => $lucro_anual);
+        $chart = new MateriaLegalChart;
+        $chart->labels(['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']);
+        $chart->dataset('R$ ', 'line', 
+            [get_ap(1, 2020), 
+                get_ap(2, 2020), 
+                get_ap(3, 2020), 
+                get_ap(4, 2020), 
+                get_ap(5, 2020), 
+                get_ap(6, 2020), 
+                get_ap(7, 2020), 
+                get_ap(8, 2020), 
+                get_ap(9, 2020), 
+                get_ap(10, 2020), 
+                get_ap(11, 2020), 
+                get_ap(12, 2020)])
+            ->linetension(0.2);
+        $chart->options([
+            'maintainAspectRatio' => false,
+            'elements' => [
+                'line' => [
+                    'borderColor' => 'rgba(78, 115, 223, 1)',
+                ],
+                'point' => [
+                    'borderColor' => 'rgba(78, 115, 223, 1)',
+                    'backgroundColor' => 'rgba(78, 115, 223, 1)'
+                ]
+            ],
+            'layout' => [
+              'padding' => [
+                'left' => 10,
+                'right' => 25,
+                'top' => 25,
+                'bottom' => 0
+              ]
+            ],
+            'scales' => [
+                'xAxes' => [[
+                    'time' => [
+                        'unit' => 'date'
+                    ],
+                    'gridLines' => [
+                        'display' => false,
+                        'drawBorder' => false
+                    ],
+                    'ticks' => [
+                        'maxTicksLimit' => 12
+                    ]
+                ]],
+                'yAxes' => [[
+                    'ticks' => [
+                        'maxTicksLimit' => 7,
+                        'padding' => 10,
+                        // Include a dollar sign in the ticks
+                        //'callback' => function(value, index, values) {
+                        //  return '$' + number_format(value);
+                        //}
+                    ],
+                    'gridLines' => [
+                        'color' => "rgb(234, 236, 244)",
+                        'zeroLineColor' => "rgb(234, 236, 244)",
+                        'drawBorder' => false,
+                        'borderDash' => [2],
+                        'zeroLineBorderDash' => [2]
+                    ]
+                ]],
+            ],
+            'legend' => [
+                'display' => false
+            ],
+            'tooltips' => [
+                'pointBackgroundColor' => "rgba(78, 115, 223, 1)",
+                'pointBorderColor' => "rgba(78, 115, 223, 1)",
+                'backgroundColor' => "rgb(255,255,255)",
+                'bodyFontColor' => "#858796",
+                'titleMarginBottom' => 10,
+                'titleFontColor' => '#6e707e',
+                'titleFontSize' => 14,
+                'borderColor' => '#dddfeb',
+                'borderWidth' => 1,
+                'xPadding' => 15,
+                'yPadding' => 15,
+                'displayColors' => false,
+                'intersect' => false,
+                'mode' => 'index',
+                'caretPadding' => 10,
+                //'callbacks': {
+                //  'label': function(tooltipItem, chart) {
+                //          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                //          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                //  }
+                //}
+            ]
+        ]);
+
+        //EndCharts
+
+        $data = array('entradas' => $entradas, 'saidas' => $saidas, 'entrada_mensal' => $entrada_mensal, 'saida_mensal' => $saida_mensal, 'saida_anual' => $saida_anual, 'lucro_mensal' => $lucro_mensal, 'lucro_anual' => $lucro_anual, 'chart' => $chart);
 
         return view('home', compact('data'));
     }
