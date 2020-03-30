@@ -69,6 +69,8 @@ class ProdutosController extends Controller
 	public function alterar(Request $request){
 		$produtosData = array(
 			"nome" 				=> $request->nome,
+			"tipo" 				=> $request->tipo,
+			"marca" 			=> $request->marca,
 			"preco_loja"        => m($request->preco_loja),
 			"preco_app"         => m($request->preco_app),
 			"atualizado_por" 	=> Auth::user()->id,

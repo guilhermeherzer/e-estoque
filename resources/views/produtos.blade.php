@@ -74,6 +74,24 @@
 												<div class="col-md-8">
 													<div class="form-row mb-2">
 														<div class="col-md-6">
+															<label>Tipo</label>
+															<select name="tipo" class="form-control form-control-sm" required>
+																@foreach($data['tipos'] as $t)
+																	<option @if($p->tipo == $t->id) selected @endif value="{{ $t->id }}">{{ $t->nome }}</option>
+																@endforeach
+															</select>
+														</div>
+														<div class="col-md-6">
+															<label>Marca</label>
+															<select name="marca" class="form-control form-control-sm" required>
+																@foreach($data['marcas'] as $m)
+																	<option @if($p->marca == $m->id) selected @endif value="{{ $m->id }}">{{ $m->nome }}</option>
+																@endforeach
+															</select>
+														</div>
+													</div>
+													<div class="form-row mb-2">
+														<div class="col-md-8">
 															<label>Nome</label>
 															<input name="nome" class="form-control form-control-sm" value="{{ $p->nome }}" autocomplete="false" required>
 														</div>
