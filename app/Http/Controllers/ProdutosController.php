@@ -49,6 +49,7 @@ class ProdutosController extends Controller
 				"img" 				=> $img,
 				"preco_loja"        => m($request->preco_loja),
 				"preco_app"         => m($request->preco_app),
+				"alerta"         	=> $request->alerta,
 				"status" 			=> 0,
 				"criado_por" 		=> Auth::user()->id,
 				"atualizado_por" 	=> Auth::user()->id,
@@ -73,6 +74,7 @@ class ProdutosController extends Controller
 			"marca" 			=> $request->marca,
 			"preco_loja"        => m($request->preco_loja),
 			"preco_app"         => m($request->preco_app),
+			"alerta"         	=> $request->alerta,
 			"atualizado_por" 	=> Auth::user()->id,
 			"updated_at" 		=> date('Y/m/d H:i:s')
 		);

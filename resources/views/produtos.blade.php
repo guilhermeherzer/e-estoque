@@ -28,11 +28,12 @@
 				<table class="table table-striped table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th width="10%">Id</th>
-							<th width="60%">Nome</th>
-							<th width="10%">Preço Loja</th>
-							<th width="10%">Preço App</th>
-							<th width="10%"></th>
+							<th width="5%">Id</th>
+							<th width="50%">Nome</th>
+							<th width="15%">Preço Loja</th>
+							<th width="15%">Preço App</th>
+							<th width="10%">Alerta</th>
+							<th width="5%"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -42,6 +43,7 @@
 							<td>{{ $p->nome }}</td>
 							<td>R$ {{ n($p->preco_loja) }}</td>
 							<td>R$ {{ n($p->preco_app) }}</td>
+							<td>{{ $p->alerta }}</td>
 							<td>
 								<a href="#" data-toggle="modal" data-target="#produtoModal{{ $p->id }}">
 									<i class="far fa-edit"></i>
@@ -98,6 +100,12 @@
 														<div class="col-md-4">
 															<label>Preço App</label>
 															<input name="preco_app" class="form-control form-control-sm" value="{{ n($p->preco_app) }}" autocomplete="false" required>
+														</div>
+													</div>
+													<div class="form-row mb-2">
+														<div class="col-md-4">
+															<label>Quantidade para Alerta</label>
+															<input type="number" name="alerta" class="form-control form-control-sm" value="{{ $p->alerta }}" autocomplete="false" required>
 														</div>
 													</div>
 												</div>
@@ -202,6 +210,12 @@
 						<div class="col-md-4">
 							<label>Preço App</label>
 							<input name="preco_app" class="form-control form-control-sm" required>
+						</div>
+					</div>
+					<div class="form-row mb-2">
+						<div class="col-md-4">
+							<label>Quantidade para Alerta</label>
+							<input type="number" name="alerta" class="form-control form-control-sm" autocomplete="false" required>
 						</div>
 					</div>
 				</div>

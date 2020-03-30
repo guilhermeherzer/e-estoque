@@ -21,6 +21,7 @@ class CreateProdutosTable extends Migration
             $table->string('img', 150);
             $table->double('preco_loja');
             $table->double('preco_app');
+            $table->integer('alerta');
             $table->integer('status');
             $table->integer('criado_por');
             $table->integer('atualizado_por');

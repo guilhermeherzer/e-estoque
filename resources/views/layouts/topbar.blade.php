@@ -1,43 +1,43 @@
 <?php
-    	$produtos = DB::table('produtos')
+    	$p = DB::table('produtos')
     		->where('status', '0')
     		->orderBy('nome', 'asc')
     		->get();
 
-    	$alerta = array();
+    	$a = array();
 
-    	foreach($produtos as $p):
+    	foreach($p as $p):
 
-		    	$entradas = DB::table('entradas')
+		    	$e = DB::table('entradas')
 		    		->select(DB::raw('SUM(quantidade) as quantidade'))
 		    		->groupBy('produto')
 		    		->where([['status', 0], ['produto', $p->id]])
 		    		->first();
 
 
-		    	$saidas = DB::table('saidas')
+		    	$s = DB::table('saidas')
 		    		->select(DB::raw('SUM(quantidade) as quantidade'))
 		    		->groupBy('produto')
 		    		->where([['status', 0], ['produto', $p->id]])
 		    		->first();
 
-		    	if($entradas):
-		    		$entradas = $entradas->quantidade;
+		    	if($e):
+		    		$e = $e->quantidade;
 		    	endif;
 
-		    	if($saidas):
-		    		$saidas = $saidas->quantidade;
+		    	if($s):
+		    		$s = $s->quantidade;
 		    	endif;
 
-		    	$teste = $entradas - $saidas;
+		    	$teste = $e - $s;
 
-		    	if($teste == 0):
-		    		$alerta[] = ['produto' => $p->nome, 'quantidade' => $teste];
+		    	if($teste <= $p->alerta):
+		    		$a[] = ['produto' => $p->nome, 'quantidade' => $teste];
 		    	endif;
     				
     	endforeach;
 
-        //dd($alerta);
+        //dd($a);
 ?>
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 					<!-- Sidebar Toggle (Topbar) -->
@@ -83,13 +83,13 @@
 						<li class="nav-item dropdown no-arrow mx-1">
 							<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-bell fa-fw"></i>
-								<span class="badge badge-danger badge-counter">{{ count($alerta) }}+</span>
+								<span class="badge badge-danger badge-counter">{{ count($a) }}</span>
 							</a>
 							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 								<h6 class="dropdown-header">
 									Central de Alertas
 								</h6>
-								@foreach($alerta as $a)
+								@foreach($a as $a)
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="mr-3">
 										<div class="icon-circle bg-danger">
