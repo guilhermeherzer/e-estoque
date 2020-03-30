@@ -27,7 +27,7 @@
 					{{ $m->span }}
 				</div>
 					@foreach($m->sub as $s)
-						<li class="nav-item">
+						<li class="nav-item {{ Request::is($s->href) ? 'active' : '' }}">
 							<a class="nav-link" href="{{ route($s->href) }}">
 								<i class="fas fa-chevron-circle-right"></i>
 								<span>{{ $s->span }}</span>
