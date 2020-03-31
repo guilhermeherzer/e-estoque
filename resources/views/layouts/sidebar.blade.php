@@ -2,7 +2,7 @@
 			$itens = file_get_contents('C:/Users/guilh/e-com/resources/views/layouts/sidebar.json');
 			$menus = json_decode($itens);
 		?>
-		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion fixed-top" id="accordionSidebar">
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
 				<div class="sidebar-brand-icon">

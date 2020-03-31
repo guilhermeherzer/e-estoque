@@ -10996,3 +10996,14 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+/********************************************************************************************************************************************/
+
+.container-fluid {
+  margin-top: 86px;
+  padding-left: 248px;
+}
+
+.topbar {
+  margin-left: 224px;
+}
