@@ -128,7 +128,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($data['entradas'] as $e)
+												@foreach($data['entradas']->slice(0, 10) as $e)
 													<tr>
 														<td>{{ $e->produto }}</td>
 														<td>{{ d($e->data_entrega) }}</td>
@@ -178,7 +178,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($data['saidas'] as $s)
+												@foreach($data['saidas']->slice(0, 10) as $s)
 													<tr>
 														<td>{{ $s->produto }}</td>
 														<td>{{ d($s->data_saida) }}</td>
