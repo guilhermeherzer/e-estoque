@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Charts\OneChart;
+
 use DB;
 
 class HomeController extends Controller
@@ -78,7 +80,7 @@ class HomeController extends Controller
 
         //Charts
 
-        $chart = new MateriaLegalChart;
+        $chart = new OneChart;
         $chart->labels(['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']);
         $chart->dataset('R$ ', 'line', 
             [get_ap(1, 2020), 

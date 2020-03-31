@@ -1,0 +1,1 @@
+[Mon Mar 30 20:31:24.149646 2020] [php7:error] [pid 10600:tid 1896] [client ::1:50992] PHP Fatal error:  Cannot declare class App\\Charts\\Chart because the name is already in use in C:\\Users\\guilh\\e-com\\app\\Charts\\Chart.php on line 7, referer: http://localhost/estoque
