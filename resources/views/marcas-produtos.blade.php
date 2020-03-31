@@ -111,7 +111,7 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form method="post" action="{{ route('marcas-produtos-cadastrar') }}">
+			<form method="post" action="{{ route('marcas-produtos-cadastrar') }}" enctype="multipart/form-data">
 				@csrf
 				<div class="modal-body">
 					<div class="form-row mb-2">
