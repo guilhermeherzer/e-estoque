@@ -44,12 +44,12 @@
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
-        	@foreach($data['tipos'] as $t)
+        	@foreach($data['produtos'] as $p)
             <div class="col-xl-2 col-lg-3 col-md-2">
-                <a href="">
+                <a href="{{ route('app-categoria', ['categoria' => $p->nome]) }}">
 	                <div class="shadow-lg my-5 p-5">
 	                    <div class="texto-box flex-box">
-	                    	<h1 class="texto">{{ $t->nome }}</h1>
+	                    	<h1 class="texto">{{ $p->nome }}</h1>
 	                    </div>
 	                </div>
             	</a>

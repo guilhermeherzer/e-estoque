@@ -57,3 +57,4 @@ Route::middleware('auth')->group(function(){
 });
 	
 	Route::get('/app',		 						'AppController@index')->name('app');
+	Route::get('/app/{categoria}',					'AppController@categoria')->name('app-categoria');
