@@ -55,6 +55,3 @@ Route::middleware('auth')->group(function(){
 	
 	Route::get('/estoque',	 						'EstoqueController@index')->name('estoque');
 });
-	
-	Route::get('/app',		 						'AppController@index')->name('app');
-	Route::get('/app/{categoria}',					'AppController@categoria')->name('app-categoria');
